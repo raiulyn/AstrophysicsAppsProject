@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAClient", "AAClient.csproj", "{709499AE-6D94-44D6-86D2-90D848BD49BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{709499AE-6D94-44D6-86D2-90D848BD49BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709499AE-6D94-44D6-86D2-90D848BD49BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709499AE-6D94-44D6-86D2-90D848BD49BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709499AE-6D94-44D6-86D2-90D848BD49BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68D83D88-C991-4402-B7FD-143C8DF3FB84}
+	EndGlobalSection
+EndGlobal
