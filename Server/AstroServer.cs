@@ -9,24 +9,25 @@ namespace AstroServer
 {
     internal class AstroServer : IAstroContract
     {
+        public Calculus calculus = new Calculus();
         public double EventHorizon(double mass)
         {
-            throw new NotImplementedException();
+            return calculus.EventHorizon(mass);
         }
 
         public double StarDistance(double archseconds)
         {
-            throw new NotImplementedException();
+            return calculus.StarDistance(archseconds);
         }
 
         public double StarVelocty(double observed, double rest)
         {
-            throw new NotImplementedException();
+            return calculus.StarVelocty(observed, rest);
         }
 
         public double TemperatureInKelvin(double celsius)
         {
-            throw new NotImplementedException();
+            return calculus.TemperatureInKelvin(celsius);
         }
     }
 }
