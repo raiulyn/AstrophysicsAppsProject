@@ -8,17 +8,33 @@ namespace AstroMath
 {
     public class Calculus
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="observed"></param>
+        /// <param name="rest"></param>
+        /// <returns></returns>
         public double StarVelocty(double observed, double rest)
         {
             var change = observed - rest;
             var speed = 299792458;
             return speed * (change / rest);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="archseconds"></param>
+        /// <returns></returns>
         public double StarDistance(double archseconds)
         {
-            var angle = 1 / 3600;
-            return (1 / angle) / (3.0857 * Math.Pow(10, 16));
+            var angle = 1 / archseconds;
+            return angle;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="celsius"></param>
+        /// <returns></returns>
         public double TemperatureInKelvin(double celsius)
         {
             if (celsius < -273) { celsius = -273; }
@@ -26,6 +42,11 @@ namespace AstroMath
             if (result < 0) { result = 0; }
             return result;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
         public double EventHorizon(double mass)
         {
              double g = 6.674 * Math.Pow(10, -11);
