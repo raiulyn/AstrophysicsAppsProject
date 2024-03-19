@@ -9,7 +9,7 @@ namespace AstroMath
     public class Calculus
     {
         /// <summary>
-        /// 
+        /// Takes in two parameters (observed and rest) and calculates them into velocity
         /// </summary>
         /// <param name="observed"></param>
         /// <param name="rest"></param>
@@ -21,7 +21,7 @@ namespace AstroMath
             return speed * (change / rest);
         }
         /// <summary>
-        /// 
+        /// Takes in the arch seconds and calculates it into the distance to a star
         /// </summary>
         /// <param name="archseconds"></param>
         /// <returns></returns>
@@ -31,7 +31,7 @@ namespace AstroMath
             return angle;
         }
         /// <summary>
-        /// 
+        /// Takes in a celsius and converts it into Kelvin temperature
         /// </summary>
         /// <param name="celsius"></param>
         /// <returns></returns>
@@ -43,7 +43,7 @@ namespace AstroMath
             return result;
         }
         /// <summary>
-        /// 
+        /// Takes in mass and calculates it into the size of Event Horizon
         /// </summary>
         /// <param name="mass"></param>
         /// <returns></returns>

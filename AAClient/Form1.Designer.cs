@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.ResultsGridView = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.StarVelocityLabel = new System.Windows.Forms.Label();
-            this.StarDistanceLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.TemperatureLabel = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.EventHorizenLabel = new System.Windows.Forms.Label();
+            this.StarVelocityObserved_textbox = new System.Windows.Forms.TextBox();
+            this.StarVelocity_label = new System.Windows.Forms.Label();
+            this.StarDistance_label = new System.Windows.Forms.Label();
+            this.StarDistanceArchseconds_textbox = new System.Windows.Forms.TextBox();
+            this.Temperature_label = new System.Windows.Forms.Label();
+            this.TemperatureKelvin_textbox = new System.Windows.Forms.TextBox();
+            this.EventHorizen_label = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.EnglishButton = new System.Windows.Forms.Button();
             this.FrenchButton = new System.Windows.Forms.Button();
@@ -44,12 +44,15 @@
             this.ColorPickerButton = new System.Windows.Forms.Button();
             this.FontPickerButton = new System.Windows.Forms.Button();
             this.ThemePickerButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.StarVelocity_btn = new System.Windows.Forms.Button();
+            this.StarDistance_btn = new System.Windows.Forms.Button();
+            this.TemperatureKelvin_btn = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.StarVelocityRest_textbox = new System.Windows.Forms.TextBox();
+            this.Connection_label = new System.Windows.Forms.Label();
+            this.Connection_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ResultsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -62,62 +65,62 @@
             this.ResultsGridView.Size = new System.Drawing.Size(375, 317);
             this.ResultsGridView.TabIndex = 0;
             // 
-            // textBox1
+            // StarVelocityObserved_textbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(46, 124);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(184, 20);
-            this.textBox1.TabIndex = 1;
+            this.StarVelocityObserved_textbox.Location = new System.Drawing.Point(46, 124);
+            this.StarVelocityObserved_textbox.Name = "StarVelocityObserved_textbox";
+            this.StarVelocityObserved_textbox.Size = new System.Drawing.Size(128, 20);
+            this.StarVelocityObserved_textbox.TabIndex = 1;
             // 
-            // StarVelocityLabel
+            // StarVelocity_label
             // 
-            this.StarVelocityLabel.AutoSize = true;
-            this.StarVelocityLabel.Location = new System.Drawing.Point(106, 108);
-            this.StarVelocityLabel.Name = "StarVelocityLabel";
-            this.StarVelocityLabel.Size = new System.Drawing.Size(66, 13);
-            this.StarVelocityLabel.TabIndex = 2;
-            this.StarVelocityLabel.Text = "Star Velocity";
+            this.StarVelocity_label.AutoSize = true;
+            this.StarVelocity_label.Location = new System.Drawing.Point(106, 108);
+            this.StarVelocity_label.Name = "StarVelocity_label";
+            this.StarVelocity_label.Size = new System.Drawing.Size(66, 13);
+            this.StarVelocity_label.TabIndex = 2;
+            this.StarVelocity_label.Text = "Star Velocity";
             // 
-            // StarDistanceLabel
+            // StarDistance_label
             // 
-            this.StarDistanceLabel.AutoSize = true;
-            this.StarDistanceLabel.Location = new System.Drawing.Point(103, 182);
-            this.StarDistanceLabel.Name = "StarDistanceLabel";
-            this.StarDistanceLabel.Size = new System.Drawing.Size(71, 13);
-            this.StarDistanceLabel.TabIndex = 4;
-            this.StarDistanceLabel.Text = "Star Distance";
+            this.StarDistance_label.AutoSize = true;
+            this.StarDistance_label.Location = new System.Drawing.Point(103, 182);
+            this.StarDistance_label.Name = "StarDistance_label";
+            this.StarDistance_label.Size = new System.Drawing.Size(71, 13);
+            this.StarDistance_label.TabIndex = 4;
+            this.StarDistance_label.Text = "Star Distance";
             // 
-            // textBox2
+            // StarDistanceArchseconds_textbox
             // 
-            this.textBox2.Location = new System.Drawing.Point(46, 198);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(184, 20);
-            this.textBox2.TabIndex = 5;
+            this.StarDistanceArchseconds_textbox.Location = new System.Drawing.Point(46, 198);
+            this.StarDistanceArchseconds_textbox.Name = "StarDistanceArchseconds_textbox";
+            this.StarDistanceArchseconds_textbox.Size = new System.Drawing.Size(184, 20);
+            this.StarDistanceArchseconds_textbox.TabIndex = 5;
             // 
-            // TemperatureLabel
+            // Temperature_label
             // 
-            this.TemperatureLabel.AutoSize = true;
-            this.TemperatureLabel.Location = new System.Drawing.Point(106, 265);
-            this.TemperatureLabel.Name = "TemperatureLabel";
-            this.TemperatureLabel.Size = new System.Drawing.Size(67, 13);
-            this.TemperatureLabel.TabIndex = 6;
-            this.TemperatureLabel.Text = "Temperature";
+            this.Temperature_label.AutoSize = true;
+            this.Temperature_label.Location = new System.Drawing.Point(106, 265);
+            this.Temperature_label.Name = "Temperature_label";
+            this.Temperature_label.Size = new System.Drawing.Size(67, 13);
+            this.Temperature_label.TabIndex = 6;
+            this.Temperature_label.Text = "Temperature";
             // 
-            // textBox3
+            // TemperatureKelvin_textbox
             // 
-            this.textBox3.Location = new System.Drawing.Point(46, 281);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(184, 20);
-            this.textBox3.TabIndex = 7;
+            this.TemperatureKelvin_textbox.Location = new System.Drawing.Point(46, 281);
+            this.TemperatureKelvin_textbox.Name = "TemperatureKelvin_textbox";
+            this.TemperatureKelvin_textbox.Size = new System.Drawing.Size(184, 20);
+            this.TemperatureKelvin_textbox.TabIndex = 7;
             // 
-            // EventHorizenLabel
+            // EventHorizen_label
             // 
-            this.EventHorizenLabel.AutoSize = true;
-            this.EventHorizenLabel.Location = new System.Drawing.Point(103, 348);
-            this.EventHorizenLabel.Name = "EventHorizenLabel";
-            this.EventHorizenLabel.Size = new System.Drawing.Size(74, 13);
-            this.EventHorizenLabel.TabIndex = 8;
-            this.EventHorizenLabel.Text = "Event Horizon";
+            this.EventHorizen_label.AutoSize = true;
+            this.EventHorizen_label.Location = new System.Drawing.Point(103, 348);
+            this.EventHorizen_label.Name = "EventHorizen_label";
+            this.EventHorizen_label.Size = new System.Drawing.Size(74, 13);
+            this.EventHorizen_label.TabIndex = 8;
+            this.EventHorizen_label.Text = "Event Horizon";
             // 
             // textBox4
             // 
@@ -189,32 +192,35 @@
             this.ThemePickerButton.Text = "Pick Themes";
             this.ThemePickerButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // StarVelocity_btn
             // 
-            this.button1.Location = new System.Drawing.Point(236, 124);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Calculate";
-            this.button1.UseVisualStyleBackColor = true;
+            this.StarVelocity_btn.Location = new System.Drawing.Point(236, 124);
+            this.StarVelocity_btn.Name = "StarVelocity_btn";
+            this.StarVelocity_btn.Size = new System.Drawing.Size(75, 23);
+            this.StarVelocity_btn.TabIndex = 18;
+            this.StarVelocity_btn.Text = "Calculate";
+            this.StarVelocity_btn.UseVisualStyleBackColor = true;
+            this.StarVelocity_btn.Click += new System.EventHandler(this.StarVelocity_btn_Click);
             // 
-            // button2
+            // StarDistance_btn
             // 
-            this.button2.Location = new System.Drawing.Point(236, 198);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Calculate";
-            this.button2.UseVisualStyleBackColor = true;
+            this.StarDistance_btn.Location = new System.Drawing.Point(236, 198);
+            this.StarDistance_btn.Name = "StarDistance_btn";
+            this.StarDistance_btn.Size = new System.Drawing.Size(75, 23);
+            this.StarDistance_btn.TabIndex = 19;
+            this.StarDistance_btn.Text = "Calculate";
+            this.StarDistance_btn.UseVisualStyleBackColor = true;
+            this.StarDistance_btn.Click += new System.EventHandler(this.StarDistance_btn_Click);
             // 
-            // button3
+            // TemperatureKelvin_btn
             // 
-            this.button3.Location = new System.Drawing.Point(236, 278);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 20;
-            this.button3.Text = "Calculate";
-            this.button3.UseVisualStyleBackColor = true;
+            this.TemperatureKelvin_btn.Location = new System.Drawing.Point(236, 278);
+            this.TemperatureKelvin_btn.Name = "TemperatureKelvin_btn";
+            this.TemperatureKelvin_btn.Size = new System.Drawing.Size(75, 23);
+            this.TemperatureKelvin_btn.TabIndex = 20;
+            this.TemperatureKelvin_btn.Text = "Calculate";
+            this.TemperatureKelvin_btn.UseVisualStyleBackColor = true;
+            this.TemperatureKelvin_btn.Click += new System.EventHandler(this.TemperatureKelvin_btn_Click);
             // 
             // button4
             // 
@@ -242,17 +248,46 @@
             this.numericUpDown1.Size = new System.Drawing.Size(184, 20);
             this.numericUpDown1.TabIndex = 23;
             // 
+            // StarVelocityRest_textbox
+            // 
+            this.StarVelocityRest_textbox.Location = new System.Drawing.Point(178, 124);
+            this.StarVelocityRest_textbox.Name = "StarVelocityRest_textbox";
+            this.StarVelocityRest_textbox.Size = new System.Drawing.Size(56, 20);
+            this.StarVelocityRest_textbox.TabIndex = 2;
+            // 
+            // Connection_label
+            // 
+            this.Connection_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Connection_label.Location = new System.Drawing.Point(12, 14);
+            this.Connection_label.Name = "Connection_label";
+            this.Connection_label.Size = new System.Drawing.Size(299, 34);
+            this.Connection_label.TabIndex = 26;
+            this.Connection_label.Text = "Connection";
+            // 
+            // Connection_btn
+            // 
+            this.Connection_btn.Location = new System.Drawing.Point(12, 50);
+            this.Connection_btn.Name = "Connection_btn";
+            this.Connection_btn.Size = new System.Drawing.Size(145, 23);
+            this.Connection_btn.TabIndex = 25;
+            this.Connection_btn.Text = "Check Server";
+            this.Connection_btn.UseVisualStyleBackColor = true;
+            this.Connection_btn.Click += new System.EventHandler(this.Connection_btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Connection_btn);
+            this.Controls.Add(this.Connection_label);
+            this.Controls.Add(this.StarVelocityRest_textbox);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TemperatureKelvin_btn);
+            this.Controls.Add(this.StarDistance_btn);
+            this.Controls.Add(this.StarVelocity_btn);
             this.Controls.Add(this.ThemePickerButton);
             this.Controls.Add(this.FontPickerButton);
             this.Controls.Add(this.ColorPickerButton);
@@ -261,13 +296,13 @@
             this.Controls.Add(this.FrenchButton);
             this.Controls.Add(this.EnglishButton);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.EventHorizenLabel);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.TemperatureLabel);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.StarDistanceLabel);
-            this.Controls.Add(this.StarVelocityLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.EventHorizen_label);
+            this.Controls.Add(this.TemperatureKelvin_textbox);
+            this.Controls.Add(this.Temperature_label);
+            this.Controls.Add(this.StarDistanceArchseconds_textbox);
+            this.Controls.Add(this.StarDistance_label);
+            this.Controls.Add(this.StarVelocity_label);
+            this.Controls.Add(this.StarVelocityObserved_textbox);
             this.Controls.Add(this.ResultsGridView);
             this.Name = "Form1";
             this.Text = "AstrophysicsApps Client";
@@ -281,13 +316,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView ResultsGridView;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label StarVelocityLabel;
-        private System.Windows.Forms.Label StarDistanceLabel;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label TemperatureLabel;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label EventHorizenLabel;
+        private System.Windows.Forms.TextBox StarVelocityObserved_textbox;
+        private System.Windows.Forms.Label StarVelocity_label;
+        private System.Windows.Forms.Label StarDistance_label;
+        private System.Windows.Forms.TextBox StarDistanceArchseconds_textbox;
+        private System.Windows.Forms.Label Temperature_label;
+        private System.Windows.Forms.TextBox TemperatureKelvin_textbox;
+        private System.Windows.Forms.Label EventHorizen_label;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button EnglishButton;
         private System.Windows.Forms.Button FrenchButton;
@@ -296,12 +331,15 @@
         private System.Windows.Forms.Button ColorPickerButton;
         private System.Windows.Forms.Button FontPickerButton;
         private System.Windows.Forms.Button ThemePickerButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button StarVelocity_btn;
+        private System.Windows.Forms.Button StarDistance_btn;
+        private System.Windows.Forms.Button TemperatureKelvin_btn;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.TextBox StarVelocityRest_textbox;
+        private System.Windows.Forms.Label Connection_label;
+        private System.Windows.Forms.Button Connection_btn;
     }
 }
 
