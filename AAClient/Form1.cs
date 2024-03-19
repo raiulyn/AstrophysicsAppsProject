@@ -86,5 +86,14 @@ namespace AAClient
             view.Rows.Add(row5);
             view.Rows.Add(row6);
         }
+
+        private void SendData(IAstroContract contract)
+        {
+
+        }
+        private IAstroContract ReceiveData()
+        {
+            return new IAstroContract();
+        }
     }
 }

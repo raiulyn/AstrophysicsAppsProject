@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using AstroMath;
 
 namespace AstroServer
 {
+    [ServiceContract]
     internal interface IAstroContract
     {
-        public double StarVelocty(double observed, double rest);
-        public double StarDistance(double archseconds);
-        public double TemperatureInKelvin(double celsius);
-        public double EventHorizon(double mass);
+        [OperationContract]
+        double StarVelocty(double observed, double rest);
+        [OperationContract]
+        double StarDistance(double archseconds);
+        [OperationContract]
+        double TemperatureInKelvin(double celsius);
+        [OperationContract]
+        double EventHorizon(double mass);
     }
 }

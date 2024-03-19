@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstroServer", "AstroServer.csproj", "{7A3E1134-FB94-4651-933D-724B4B8CC5EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstroServer", "AstroServer.csproj", "{4D298997-3223-4FD7-898B-C97444EC3EE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A3E1134-FB94-4651-933D-724B4B8CC5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A3E1134-FB94-4651-933D-724B4B8CC5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A3E1134-FB94-4651-933D-724B4B8CC5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A3E1134-FB94-4651-933D-724B4B8CC5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D298997-3223-4FD7-898B-C97444EC3EE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D298997-3223-4FD7-898B-C97444EC3EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D298997-3223-4FD7-898B-C97444EC3EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D298997-3223-4FD7-898B-C97444EC3EE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {475796EF-CD9F-40A6-8445-D5ADB109F047}
+		SolutionGuid = {E706E786-2EF1-474F-9B30-B58A65050DFA}
 	EndGlobalSection
 EndGlobal

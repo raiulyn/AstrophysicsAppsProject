@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using AstroMath;
 
 namespace AstroServer
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     internal class AstroServer : IAstroContract
     {
         public Calculus calculus = new Calculus();
+
         public double EventHorizon(double mass)
         {
             return calculus.EventHorizon(mass);
