@@ -47,7 +47,7 @@
             this.StarVelocity_btn = new System.Windows.Forms.Button();
             this.StarDistance_btn = new System.Windows.Forms.Button();
             this.TemperatureKelvin_btn = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.EventHorizon_btn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.StarVelocityRest_textbox = new System.Windows.Forms.TextBox();
@@ -137,6 +137,7 @@
             this.EnglishButton.TabIndex = 11;
             this.EnglishButton.Text = "English(UK)";
             this.EnglishButton.UseVisualStyleBackColor = true;
+            this.EnglishButton.Click += new System.EventHandler(this.EnglishButton_Click);
             // 
             // FrenchButton
             // 
@@ -146,6 +147,7 @@
             this.FrenchButton.TabIndex = 12;
             this.FrenchButton.Text = "French";
             this.FrenchButton.UseVisualStyleBackColor = true;
+            this.FrenchButton.Click += new System.EventHandler(this.FrenchButton_Click);
             // 
             // GermanButton
             // 
@@ -155,6 +157,7 @@
             this.GermanButton.TabIndex = 13;
             this.GermanButton.Text = "German";
             this.GermanButton.UseVisualStyleBackColor = true;
+            this.GermanButton.Click += new System.EventHandler(this.GermanButton_Click);
             // 
             // CalculateButton
             // 
@@ -173,6 +176,7 @@
             this.ColorPickerButton.TabIndex = 15;
             this.ColorPickerButton.Text = "Pick Colors";
             this.ColorPickerButton.UseVisualStyleBackColor = true;
+            this.ColorPickerButton.Click += new System.EventHandler(this.ColorPickerButton_Click);
             // 
             // FontPickerButton
             // 
@@ -222,14 +226,14 @@
             this.TemperatureKelvin_btn.UseVisualStyleBackColor = true;
             this.TemperatureKelvin_btn.Click += new System.EventHandler(this.TemperatureKelvin_btn_Click);
             // 
-            // button4
+            // EventHorizon_btn
             // 
-            this.button4.Location = new System.Drawing.Point(236, 375);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "Calculate";
-            this.button4.UseVisualStyleBackColor = true;
+            this.EventHorizon_btn.Location = new System.Drawing.Point(236, 375);
+            this.EventHorizon_btn.Name = "EventHorizon_btn";
+            this.EventHorizon_btn.Size = new System.Drawing.Size(75, 23);
+            this.EventHorizon_btn.TabIndex = 21;
+            this.EventHorizon_btn.Text = "Calculate";
+            this.EventHorizon_btn.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -284,7 +288,7 @@
             this.Controls.Add(this.StarVelocityRest_textbox);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.EventHorizon_btn);
             this.Controls.Add(this.TemperatureKelvin_btn);
             this.Controls.Add(this.StarDistance_btn);
             this.Controls.Add(this.StarVelocity_btn);
@@ -334,7 +338,7 @@
         private System.Windows.Forms.Button StarVelocity_btn;
         private System.Windows.Forms.Button StarDistance_btn;
         private System.Windows.Forms.Button TemperatureKelvin_btn;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button EventHorizon_btn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.TextBox StarVelocityRest_textbox;

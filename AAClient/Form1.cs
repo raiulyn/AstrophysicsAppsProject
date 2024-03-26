@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -228,8 +229,53 @@ namespace AAClient
         {
             CheckConnection();
         }
+
         #endregion
 
+        public void ChangeLanguage(LangOptions options)
+        {
+            switch (options)
+            {
+                case LangOptions.EnglishUK:
+                    StarVelocity_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
+                    StarDistance_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
+                    TemperatureKelvin_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
+                    EventHorizon_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
+                    break;
+                case LangOptions.French:
+                    StarVelocity_btn.Text = LanguagePack.TEXT_Calculate.French;
+                    StarDistance_btn.Text = LanguagePack.TEXT_Calculate.French;
+                    TemperatureKelvin_btn.Text = LanguagePack.TEXT_Calculate.French;
+                    EventHorizon_btn.Text = LanguagePack.TEXT_Calculate.French;
+                    break;
+                case LangOptions.German:
+                    StarVelocity_btn.Text = LanguagePack.TEXT_Calculate.German;
+                    StarDistance_btn.Text = LanguagePack.TEXT_Calculate.German;
+                    TemperatureKelvin_btn.Text = LanguagePack.TEXT_Calculate.German;
+                    EventHorizon_btn.Text = LanguagePack.TEXT_Calculate.German;
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void EnglishButton_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage(LangOptions.EnglishUK);
+        }
 
+        private void FrenchButton_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage(LangOptions.French);
+        }
+
+        private void GermanButton_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage(LangOptions.German);
+        }
+
+        private void ColorPickerButton_Click(object sender, EventArgs e)
+        {
+            VisualStylePack.PickColors(ColorPickerButton);
+        }
     }
 }
