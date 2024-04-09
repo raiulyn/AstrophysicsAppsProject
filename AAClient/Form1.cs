@@ -1,14 +1,7 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AAClient
@@ -23,13 +16,17 @@ namespace AAClient
             Disconnected
         }
 
+        private string _localization = "EnglishUK";
+
         public Form1()
         {
             InitializeComponent();
 
-            CheckConnection();
+            channel = SetupConnection();
+            //CheckConnection();
             SetupMenus();
             SetupDataGridView();
+            GenerateXmlLocalization(false);
         }
 
         #region SETUPS
@@ -41,68 +38,34 @@ namespace AAClient
             IAstroContract channel = ChannelFactory<IAstroContract>.CreateChannel(binding, ep);
             return channel;
         }
-        private void UpdateConnectionStatus(ConnectionStatus status)
-        {
-            switch (status)
-            {
-                case ConnectionStatus.Waiting:
-                    Connection_label.Font = new Font("Arial", 12, FontStyle.Bold);
-                    Connection_label.Text = "Waiting for Server Response";
-                    Connection_label.ForeColor = Color.Black;
-                    break;
-                case ConnectionStatus.Connected:
-                    Connection_label.Font = new Font("Arial", 18, FontStyle.Bold);
-                    Connection_label.Text = "Connected";
-                    Connection_label.ForeColor = Color.Green;
-                    break;
-                case ConnectionStatus.Disconnected:
-                    Connection_label.Font = new Font("Arial", 18, FontStyle.Bold);
-                    Connection_label.Text = "Disconnected";
-                    Connection_label.ForeColor = Color.Red;
-                    break;
-                default:
-                    break;
-            }
-        }
-        private void CheckConnection()
-        {
-            channel = SetupConnection();
-            UpdateConnectionStatus(ConnectionStatus.Waiting);
-        }
 
         private void SetupMenus()
         {
             this.Menu = new MainMenu();
+
             MenuItem item = new MenuItem("File");
             this.Menu.MenuItems.Add(item);
-            item.MenuItems.Add("Save", new EventHandler(Save_Click));
-            item.MenuItems.Add("Open", new EventHandler(Open_Click));
-            item = new MenuItem("Edit");
+            item.MenuItems.Add("Close", new EventHandler(Close_Click));
+
+            item = new MenuItem("Languages");
             this.Menu.MenuItems.Add(item);
-            item.MenuItems.Add("Copy", new EventHandler(Copy_Click));
-            item.MenuItems.Add("Paste", new EventHandler(Paste_Click));
+            item.MenuItems.Add("English UK", new EventHandler(EnglishButton_Click));
+            item.MenuItems.Add("French", new EventHandler(FrenchButton_Click));
+            item.MenuItems.Add("German", new EventHandler(GermanButton_Click));
+
+            item = new MenuItem("Customization");
+            this.Menu.MenuItems.Add(item);
+            item.MenuItems.Add("Themes", new EventHandler(ThemePickerButton_Click));
+            item.MenuItems.Add("Colors", new EventHandler(ColorPickerButton_Click));
+            item.MenuItems.Add("Fonts", new EventHandler(FontPickerButton_Click));
+
         }
         #endregion
 
         #region MENU_BUTTONS
-        private void Paste_Click(object sender, EventArgs e)
+        private void Close_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void Copy_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Open_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Save_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            Application.Exit();
         }
         #endregion
 
@@ -119,8 +82,12 @@ namespace AAClient
             //PopulateDataGridView(ResultsGridView);
 
             ResultsGridView.ColumnCount = 2;
-            ResultsGridView.Columns[0].Name = "Name";
-            ResultsGridView.Columns[1].Name = "Value";
+            UpdateLocalizedDataGridView();
+        }
+        private void UpdateLocalizedDataGridView()
+        {
+            ResultsGridView.Columns[0].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_GridName");
+            ResultsGridView.Columns[1].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_GridValue");
         }
         private void PopulateDataGridView(DataGridView view)
         {
@@ -161,7 +128,7 @@ namespace AAClient
         {
             double observed;
             double rest;
-            if(!double.TryParse(StarVelocityObserved_textbox.Text, out observed))
+            if (!double.TryParse(StarVelocityObserved_textbox.Text, out observed))
             {
                 return;
             }
@@ -169,38 +136,38 @@ namespace AAClient
             {
                 return;
             }
-            
+
             try
             {
                 var result = channel.StarVelocty(observed, rest).ToString();
-                AddDataGridViewEntry(ResultsGridView, "Star Velocity", result);
-                UpdateConnectionStatus(ConnectionStatus.Connected);
+                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarVelocity"), result);
+                OutputMessage("Result: " + result);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                UpdateConnectionStatus(ConnectionStatus.Disconnected);
+                OutputMessage("Server is not connected");
             }
         }
 
         private void StarDistance_btn_Click(object sender, EventArgs e)
         {
             double archseconds;
-            if(!double.TryParse(StarDistanceArchseconds_textbox.Text, out archseconds))
+            if (!double.TryParse(StarDistanceArchseconds_textbox.Text, out archseconds))
             {
                 return;
             }
-            
+
             try
             {
                 var result = channel.StarDistance(archseconds).ToString();
-                AddDataGridViewEntry(ResultsGridView, "Star Distance", result);
-                UpdateConnectionStatus(ConnectionStatus.Connected);
+                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarDistance"), result);
+                OutputMessage("Result: " + result);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                UpdateConnectionStatus(ConnectionStatus.Disconnected);
+                OutputMessage("Server is not connected");
             }
         }
 
@@ -211,52 +178,77 @@ namespace AAClient
             {
                 return;
             }
-            
+
             try
             {
                 var result = channel.TemperatureInKelvin(temp).ToString();
-                AddDataGridViewEntry(ResultsGridView, "Temperature", result);
-                UpdateConnectionStatus(ConnectionStatus.Connected);
+                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature"), result);
+                OutputMessage("Result: " + result);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                UpdateConnectionStatus(ConnectionStatus.Disconnected);
+                OutputMessage("Server is not connected");
             }
         }
-
-        private void Connection_btn_Click(object sender, EventArgs e)
+        private void EventHorizon_btn_Click(object sender, EventArgs e)
         {
-            CheckConnection();
+            double temp;
+            if (!double.TryParse(EventHorizon_textbox.Text, out temp))
+            {
+                return;
+            }
+
+            try
+            {
+                var result = channel.EventHorizon(temp).ToString();
+                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon"), result);
+                OutputMessage("Result: " + result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                OutputMessage("Server is not connected");
+            }
         }
 
         #endregion
 
         public void ChangeLanguage(LangOptions options)
         {
+            string calc_text = "";
+
             switch (options)
             {
                 case LangOptions.EnglishUK:
-                    StarVelocity_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
-                    StarDistance_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
-                    TemperatureKelvin_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
-                    EventHorizon_btn.Text = LanguagePack.TEXT_Calculate.EnglishUK;
+                    _localization = "EnglishUK";
+
                     break;
                 case LangOptions.French:
-                    StarVelocity_btn.Text = LanguagePack.TEXT_Calculate.French;
-                    StarDistance_btn.Text = LanguagePack.TEXT_Calculate.French;
-                    TemperatureKelvin_btn.Text = LanguagePack.TEXT_Calculate.French;
-                    EventHorizon_btn.Text = LanguagePack.TEXT_Calculate.French;
+                    _localization = "French";
                     break;
                 case LangOptions.German:
-                    StarVelocity_btn.Text = LanguagePack.TEXT_Calculate.German;
-                    StarDistance_btn.Text = LanguagePack.TEXT_Calculate.German;
-                    TemperatureKelvin_btn.Text = LanguagePack.TEXT_Calculate.German;
-                    EventHorizon_btn.Text = LanguagePack.TEXT_Calculate.German;
+                    _localization = "German";
                     break;
                 default:
                     break;
             }
+            UpdateLocalizedDataGridView();
+
+            calc_text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Calculate");
+            StarVelocity_btn.Text = calc_text;
+            StarDistance_btn.Text = calc_text;
+            TemperatureKelvin_btn.Text = calc_text;
+            EventHorizon_btn.Text = calc_text;
+
+            StarVelocity_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarVelocity");
+            StarDistance_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarDistance");
+            Temperature_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature");
+            EventHorizen_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon");
+
+            ThemePickerButton.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickThemes");
+            ColorPickerButton.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickColors");
+            FontPickerButton.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickFonts");
         }
         private void EnglishButton_Click(object sender, EventArgs e)
         {
@@ -273,9 +265,58 @@ namespace AAClient
             ChangeLanguage(LangOptions.German);
         }
 
+        private void ThemePickerButton_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.PickThemes(ThemePickerButton, arr);
+        }
         private void ColorPickerButton_Click(object sender, EventArgs e)
         {
-            VisualStylePack.PickColors(ColorPickerButton);
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.PickColors(ColorPickerButton, arr);
+        }
+        private void FontPickerButton_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.PickFonts(FontPickerButton, arr);
+        }
+
+        /// <summary>
+        /// Generate a template XML for localization. Once translations are finished, rename the XML file to the appriorate language.
+        /// </summary>
+        /// <param name="bl"></param>
+        private void GenerateXmlLocalization(bool bl)
+        {
+            if (bl)
+            {
+                var xml = new XmlLocalization();
+
+                List<string> tags = new List<string>();
+                tags.Add("TEXT_Calculate");
+                tags.Add("TEXT_StarVelocity");
+                tags.Add("TEXT_StarDistance");
+                tags.Add("TEXT_Temperature");
+                tags.Add("TEXT_EventHorizon");
+
+                tags.Add("TEXT_PickThemes");
+                tags.Add("TEXT_PickColors");
+                tags.Add("TEXT_PickFonts");
+
+                tags.Add("TEXT_Connected");
+                tags.Add("TEXT_Disconnected");
+                tags.Add("TEXT_CheckServer");
+
+                xml.tags = tags.ToArray();
+                xml.CreateXML();
+            }
+        }
+
+        /// <summary>
+        /// Outputs a message in the Message Textbox.
+        /// </summary>
+        private void OutputMessage(string msg)
+        {
+            MessageBox.Text = msg;
         }
     }
 }
