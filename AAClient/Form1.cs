@@ -186,8 +186,7 @@ namespace AAClient
             try
             {
                 var result1 = channel.StarVelocty(observed, rest).ToString() + " V";
-                var calc = channel.StarDistance(archseconds) * 100;
-                var result2 = calc.ToString() + " m/s";
+                var result2 = channel.StarDistance(archseconds).ToString() + " m/s";
                 var result3 = channel.TemperatureInKelvin(temp).ToString() + " K";
                 var result4 = channel.EventHorizon(evn).ToString() + " Radius";
                 AddDataGridViewEntry(ResultsGridView, result1, result2, result3, result4);
@@ -245,8 +244,7 @@ namespace AAClient
 
             try
             {
-                var calc = channel.StarDistance(archseconds) * 100;
-                var result = calc.ToString() + " m/s";
+                var result = channel.StarDistance(archseconds).ToString() + " m/s";
                 AddDataGridViewEntry(ResultsGridView, string.Empty, result);
                 OutputMessage("Result: " + result);
 
