@@ -14,6 +14,7 @@ namespace AAClient
     /// </summary>
     internal static class VisualStylePack
     {
+        // Picks color and apply complementary colors to other controls
         public static void PickColors(Control cont, Control[] conts)
         {
             ColorDialog colorDialog = new ColorDialog();
@@ -49,6 +50,12 @@ namespace AAClient
                 //cont.Parent.BackColor = ColorFromHSL(PickComplementaryColor(colorDialog.Color));
             }
         }
+        
+        /// <summary>
+        /// Picks the complementary color based on the passed color parameter
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
         private static HSV PickComplementaryColor(Color c)
         {
             Color color = Color.FromArgb(c.ToArgb());
@@ -61,6 +68,8 @@ namespace AAClient
 
             return new HSV() { h = h, s = s, v = v };
         }
+        
+        // Change colors on all passed Control parameters
         private static void ChangeColors(Color color, Control[] conts)
         {
             foreach (var item in conts)
@@ -90,6 +99,11 @@ namespace AAClient
             conts[0].Parent.BackColor = color;
         }
 
+        /// <summary>
+        /// A static function that changes all passed controls to a corresponding preset theme
+        /// </summary>
+        /// <param name="theme"></param>
+        /// <param name="conts"></param>
         public static void ChangeToPresetTheme(int theme, Control[] conts)
         {
             switch (theme)
@@ -118,6 +132,8 @@ namespace AAClient
                     break;
             }
         }
+
+
 
         // Referenced from https://stackoverflow.com/questions/28759764/c-sharp-sethue-or-alternatively-convert-hsl-to-rgb-and-set-rgb
         public struct HSV { public float h; public float s; public float v; }

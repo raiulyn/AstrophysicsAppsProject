@@ -9,16 +9,13 @@ namespace AAClient
 {
     public partial class Form1 : Form
     {
-        IAstroContract channel;
-        enum ConnectionStatus
-        {
-            Waiting,
-            Connected,
-            Disconnected
-        }
 
+        IAstroContract channel;
+
+        // Global Localization Setting
         private string _localization = "EnglishUK";
 
+        //Constructor
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +28,10 @@ namespace AAClient
         }
 
         #region SETUPS
+        /// <summary>
+        /// Sets up the Connection to the Server
+        /// </summary>
+        /// <returns></returns>
         private IAstroContract SetupConnection()
         {
             string address = "net.pipe://localhost/pipeme";
@@ -40,6 +41,9 @@ namespace AAClient
             return channel;
         }
 
+        /// <summary>
+        /// Sets up Menu Options
+        /// </summary>
         private void SetupMenus()
         {
             this.Menu = new MainMenu();
@@ -68,34 +72,28 @@ namespace AAClient
             subitem.MenuItems.Add("Blue", new EventHandler(BlueTheme_Button_Click));
             subitem.MenuItems.Add("Yellow", new EventHandler(YellowTheme_Button_Click));
         }
+
+        /// <summary>
+        /// Checks if Connection to server is valid
+        /// </summary>
         private void CheckConnection()
         {
             channel = SetupConnection();
         }
         #endregion
 
-        #region MENU_BUTTONS
-        private void Close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-        #endregion
-
         #region GRIDVIEW
+        /// <summary>
+        /// Sets up the Data Grid View with the needed columns
+        /// </summary>
         private void SetupDataGridView()
         {
-            // TEST DATA
-            //ResultsGridView.ColumnCount = 5;
-            //ResultsGridView.Columns[0].Name = "Release Date";
-            //ResultsGridView.Columns[1].Name = "Track";
-            //ResultsGridView.Columns[2].Name = "Title";
-            //ResultsGridView.Columns[3].Name = "Artist";
-            //ResultsGridView.Columns[4].Name = "Album";
-            //PopulateDataGridView(ResultsGridView);
-
             ResultsGridView.ColumnCount = 4;
             UpdateLocalizedDataGridView();
         }
+        /// <summary>
+        /// Localise Data Grid View's Column headers
+        /// </summary>
         private void UpdateLocalizedDataGridView()
         {
             ResultsGridView.Columns[0].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarVelocity");
@@ -103,6 +101,10 @@ namespace AAClient
             ResultsGridView.Columns[2].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature");
             ResultsGridView.Columns[3].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon");
         }
+        /// <summary>
+        /// Test Data for Data Grid View. Not Important and can be safely removed.
+        /// </summary>
+        /// <param name="view"></param>
         private void PopulateDataGridView(DataGridView view)
         {
             string[] row0 = { "11/22/1968", "29", "Revolution 9",
@@ -128,6 +130,14 @@ namespace AAClient
             view.Rows.Add(row5);
             view.Rows.Add(row6);
         }
+
+        /// <summary>
+        /// Takes in the Data Grid View and insert the values into it
+        /// The values parameters are under the params keyword.
+        /// Please input an array of strings according to the number of columns in th Data Grid View
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="vals"></param>
         private void AddDataGridViewEntry(DataGridView view, params string[] vals)
         {
             string[] row = vals;
@@ -136,7 +146,7 @@ namespace AAClient
         }
         #endregion
 
-        #region RESULT BUTTONS
+        #region SERVER EVENTS
         private void CalculateAll_Button_Click(object sender, EventArgs e)
         {
             CheckConnection();
@@ -298,7 +308,15 @@ namespace AAClient
         #endregion
 
         #region BUTTONS
-        
+        /// <summary>
+        /// Closes the Application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
         private void EnglishButton_Click(object sender, EventArgs e)
         {
             ChangeLanguage(LangOptions.EnglishUK);
@@ -358,6 +376,7 @@ namespace AAClient
         }
         #endregion
 
+        #region MISC
         /// <summary>
         /// Change Application Language.
         /// </summary>
@@ -465,7 +484,7 @@ namespace AAClient
             }
 
         }
+        #endregion
 
-        
     }
 }

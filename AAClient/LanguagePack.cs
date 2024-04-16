@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AAClient
 {
+    // LEFTOVER CODE
+    // Retained for post-mortem
+
     public enum LangOptions
     {
         EnglishUK,
