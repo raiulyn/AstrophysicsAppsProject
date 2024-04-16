@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace AAClient
@@ -22,8 +23,8 @@ namespace AAClient
         {
             InitializeComponent();
 
-            channel = SetupConnection();
-            //CheckConnection();
+            
+            CheckConnection();
             SetupMenus();
             SetupDataGridView();
             GenerateXmlLocalization(false);
@@ -55,10 +56,21 @@ namespace AAClient
 
             item = new MenuItem("Customization");
             this.Menu.MenuItems.Add(item);
-            item.MenuItems.Add("Themes", new EventHandler(ThemePickerButton_Click));
+            item.MenuItems.Add("Background", new EventHandler(BackgroundPickerButton_Click));
             item.MenuItems.Add("Colors", new EventHandler(ColorPickerButton_Click));
             item.MenuItems.Add("Fonts", new EventHandler(FontPickerButton_Click));
 
+            MenuItem subitem = new MenuItem("Themes");
+            item.MenuItems.Add(subitem);
+            subitem.MenuItems.Add("Default", new EventHandler(DefaultTheme_Button_Click));
+            subitem.MenuItems.Add("Black", new EventHandler(BlackTheme_Button_Click));
+            subitem.MenuItems.Add("Red", new EventHandler(RedTheme_Button_Click));
+            subitem.MenuItems.Add("Blue", new EventHandler(BlueTheme_Button_Click));
+            subitem.MenuItems.Add("Yellow", new EventHandler(YellowTheme_Button_Click));
+        }
+        private void CheckConnection()
+        {
+            channel = SetupConnection();
         }
         #endregion
 
@@ -81,17 +93,18 @@ namespace AAClient
             //ResultsGridView.Columns[4].Name = "Album";
             //PopulateDataGridView(ResultsGridView);
 
-            ResultsGridView.ColumnCount = 2;
+            ResultsGridView.ColumnCount = 4;
             UpdateLocalizedDataGridView();
         }
         private void UpdateLocalizedDataGridView()
         {
-            ResultsGridView.Columns[0].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_GridName");
-            ResultsGridView.Columns[1].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_GridValue");
+            ResultsGridView.Columns[0].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarVelocity");
+            ResultsGridView.Columns[1].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarDistance");
+            ResultsGridView.Columns[2].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature");
+            ResultsGridView.Columns[3].Name = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon");
         }
         private void PopulateDataGridView(DataGridView view)
         {
-
             string[] row0 = { "11/22/1968", "29", "Revolution 9",
             "Beatles", "The Beatles [White Album]" };
             string[] row1 = { "1960", "6", "Fools Rush In",
@@ -123,9 +136,68 @@ namespace AAClient
         }
         #endregion
 
-        #region BUTTONS
+        #region RESULT BUTTONS
+        private void CalculateAll_Button_Click(object sender, EventArgs e)
+        {
+            CheckConnection();
+
+            //Checks
+            //StarVelocity
+            double observed;
+            double rest;
+            if (!double.TryParse(StarVelocityObserved_textbox.Text, out observed))
+            {
+                return;
+            }
+            if (!double.TryParse(StarVelocityRest_textbox.Text, out rest))
+            {
+                return;
+            }
+            //StarDistance
+            double archseconds;
+            if (!double.TryParse(StarDistanceArchseconds_textbox.Text, out archseconds))
+            {
+                return;
+            }
+            //Temperature
+            double temp;
+            if (!double.TryParse(TemperatureKelvin_textbox.Text, out temp))
+            {
+                return;
+            }
+            //EventHorizon
+            double evn;
+            if (!double.TryParse(EventHorizon_textbox.Text, out evn))
+            {
+                return;
+            }
+
+            //Execute
+            try
+            {
+                var result1 = channel.StarVelocty(observed, rest).ToString() + " V";
+                var calc = channel.StarDistance(archseconds) * 100;
+                var result2 = calc.ToString() + " m/s";
+                var result3 = channel.TemperatureInKelvin(temp).ToString() + " K";
+                var result4 = channel.EventHorizon(evn).ToString() + " Radius";
+                AddDataGridViewEntry(ResultsGridView, result1, result2, result3, result4);
+                OutputMessage("Result: " + result1 + " | " + result2 + " | " + result3 + " | " + result4);
+
+                StarVelocityObserved_textbox.Text = string.Empty;
+                StarVelocityRest_textbox.Text = string.Empty;
+                StarDistanceArchseconds_textbox.Text = string.Empty;
+                TemperatureKelvin_textbox.Text = string.Empty;
+                EventHorizon_textbox.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                OutputMessage(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_ServerIsNotConnected"));
+            }
+        }
         private void StarVelocity_btn_Click(object sender, EventArgs e)
         {
+            CheckConnection();
             double observed;
             double rest;
             if (!double.TryParse(StarVelocityObserved_textbox.Text, out observed))
@@ -139,19 +211,22 @@ namespace AAClient
 
             try
             {
-                var result = channel.StarVelocty(observed, rest).ToString();
-                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarVelocity"), result);
+                var result = channel.StarVelocty(observed, rest).ToString() + " V";
+                AddDataGridViewEntry(ResultsGridView, result);
                 OutputMessage("Result: " + result);
+
+                StarVelocityObserved_textbox.Text = string.Empty;
+                StarVelocityRest_textbox.Text = string.Empty;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                OutputMessage("Server is not connected");
+                OutputMessage(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_ServerIsNotConnected"));
             }
         }
-
         private void StarDistance_btn_Click(object sender, EventArgs e)
         {
+            CheckConnection();
             double archseconds;
             if (!double.TryParse(StarDistanceArchseconds_textbox.Text, out archseconds))
             {
@@ -160,19 +235,22 @@ namespace AAClient
 
             try
             {
-                var result = channel.StarDistance(archseconds).ToString();
-                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarDistance"), result);
+                var calc = channel.StarDistance(archseconds) * 100;
+                var result = calc.ToString() + " m/s";
+                AddDataGridViewEntry(ResultsGridView, string.Empty, result);
                 OutputMessage("Result: " + result);
+
+                StarDistanceArchseconds_textbox.Text = string.Empty;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                OutputMessage("Server is not connected");
+                OutputMessage(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_ServerIsNotConnected"));
             }
         }
-
         private void TemperatureKelvin_btn_Click(object sender, EventArgs e)
         {
+            CheckConnection();
             double temp;
             if (!double.TryParse(TemperatureKelvin_textbox.Text, out temp))
             {
@@ -181,18 +259,21 @@ namespace AAClient
 
             try
             {
-                var result = channel.TemperatureInKelvin(temp).ToString();
-                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature"), result);
+                var result = channel.TemperatureInKelvin(temp).ToString() + " K";
+                AddDataGridViewEntry(ResultsGridView, string.Empty, string.Empty, result);
                 OutputMessage("Result: " + result);
+
+                TemperatureKelvin_textbox.Text = string.Empty;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                OutputMessage("Server is not connected");
+                OutputMessage(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_ServerIsNotConnected"));
             }
         }
         private void EventHorizon_btn_Click(object sender, EventArgs e)
         {
+            CheckConnection();
             double temp;
             if (!double.TryParse(EventHorizon_textbox.Text, out temp))
             {
@@ -201,19 +282,86 @@ namespace AAClient
 
             try
             {
-                var result = channel.EventHorizon(temp).ToString();
-                AddDataGridViewEntry(ResultsGridView, XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon"), result);
+                var result = channel.EventHorizon(temp).ToString() + " Radius";
+                AddDataGridViewEntry(ResultsGridView, string.Empty, string.Empty, string.Empty, result);
                 OutputMessage("Result: " + result);
+
+                EventHorizon_textbox.Text = string.Empty;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                OutputMessage("Server is not connected");
+                OutputMessage(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_ServerIsNotConnected"));
             }
         }
 
         #endregion
 
+        #region BUTTONS
+        
+        private void EnglishButton_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage(LangOptions.EnglishUK);
+        }
+
+        private void FrenchButton_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage(LangOptions.French);
+        }
+
+        private void GermanButton_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage(LangOptions.German);
+        }
+
+        private void BackgroundPickerButton_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.PickThemes(BackgroundPicker_Button, arr);
+        }
+        private void ColorPickerButton_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.PickColors(ColorPicker_Button, arr);
+        }
+        private void FontPickerButton_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.PickFonts(FontPicker_Button, arr);
+        }
+        private void DefaultTheme_Button_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.ChangeToPresetTheme(0, arr);
+        }
+
+        private void BlackTheme_Button_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.ChangeToPresetTheme(1, arr);
+        }
+
+        private void RedTheme_Button_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.ChangeToPresetTheme(2, arr);
+        }
+        private void BlueTheme_Button_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.ChangeToPresetTheme(3, arr);
+        }
+        private void YellowTheme_Button_Click(object sender, EventArgs e)
+        {
+            var arr = Controls.OfType<Control>().ToArray();
+            VisualStylePack.ChangeToPresetTheme(4, arr);
+        }
+        #endregion
+
+        /// <summary>
+        /// Change Application Language.
+        /// </summary>
+        /// <param name="options">Choice of Language</param>
         public void ChangeLanguage(LangOptions options)
         {
             string calc_text = "";
@@ -241,44 +389,16 @@ namespace AAClient
             TemperatureKelvin_btn.Text = calc_text;
             EventHorizon_btn.Text = calc_text;
 
+            CalculateAll_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_CalculateAll");
+
             StarVelocity_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarVelocity");
             StarDistance_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_StarDistance");
             Temperature_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature");
             EventHorizen_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon");
 
-            ThemePickerButton.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickThemes");
-            ColorPickerButton.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickColors");
-            FontPickerButton.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickFonts");
-        }
-        private void EnglishButton_Click(object sender, EventArgs e)
-        {
-            ChangeLanguage(LangOptions.EnglishUK);
-        }
-
-        private void FrenchButton_Click(object sender, EventArgs e)
-        {
-            ChangeLanguage(LangOptions.French);
-        }
-
-        private void GermanButton_Click(object sender, EventArgs e)
-        {
-            ChangeLanguage(LangOptions.German);
-        }
-
-        private void ThemePickerButton_Click(object sender, EventArgs e)
-        {
-            var arr = Controls.OfType<Control>().ToArray();
-            VisualStylePack.PickThemes(ThemePickerButton, arr);
-        }
-        private void ColorPickerButton_Click(object sender, EventArgs e)
-        {
-            var arr = Controls.OfType<Control>().ToArray();
-            VisualStylePack.PickColors(ColorPickerButton, arr);
-        }
-        private void FontPickerButton_Click(object sender, EventArgs e)
-        {
-            var arr = Controls.OfType<Control>().ToArray();
-            VisualStylePack.PickFonts(FontPickerButton, arr);
+            BackgroundPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickThemes");
+            ColorPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickColors");
+            FontPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickFonts");
         }
 
         /// <summary>
@@ -318,5 +438,34 @@ namespace AAClient
         {
             MessageBox.Text = msg;
         }
+
+        /// <summary>
+        /// Keypress Event to check and allow numeric only inputs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyInput(object sender, KeyPressEventArgs e)
+        {
+            
+            // Check for the flag being set in the KeyDown event.
+            bool isNumber = Char.IsNumber(e.KeyChar);
+            if (Char.IsControl(e.KeyChar))
+            {
+                isNumber = true;
+            }
+            if (e.KeyChar == '.')
+            {
+                isNumber = !(sender as TextBox).Text.Contains(".");
+            }
+
+            if (!isNumber)
+            {
+                // Stop the character from being entered into the control since it is non-numerical.
+                e.Handled = true;
+            }
+
+        }
+
+        
     }
 }

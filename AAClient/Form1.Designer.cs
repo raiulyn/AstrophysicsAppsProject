@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label Company_Label;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ResultsGridView = new System.Windows.Forms.DataGridView();
             this.StarVelocityObserved_textbox = new System.Windows.Forms.TextBox();
@@ -41,10 +42,10 @@
             this.EnglishButton = new System.Windows.Forms.Button();
             this.FrenchButton = new System.Windows.Forms.Button();
             this.GermanButton = new System.Windows.Forms.Button();
-            this.CalculateButton = new System.Windows.Forms.Button();
-            this.ColorPickerButton = new System.Windows.Forms.Button();
-            this.FontPickerButton = new System.Windows.Forms.Button();
-            this.ThemePickerButton = new System.Windows.Forms.Button();
+            this.CalculateAll_Button = new System.Windows.Forms.Button();
+            this.ColorPicker_Button = new System.Windows.Forms.Button();
+            this.FontPicker_Button = new System.Windows.Forms.Button();
+            this.BackgroundPicker_Button = new System.Windows.Forms.Button();
             this.StarVelocity_btn = new System.Windows.Forms.Button();
             this.StarDistance_btn = new System.Windows.Forms.Button();
             this.TemperatureKelvin_btn = new System.Windows.Forms.Button();
@@ -56,6 +57,10 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.MessageBox = new System.Windows.Forms.TextBox();
+            this.DefaultTheme_Button = new System.Windows.Forms.Button();
+            this.BlackTheme_Button = new System.Windows.Forms.Button();
+            this.RedTheme_Button = new System.Windows.Forms.Button();
+            Company_Label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ResultsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EventHorizon_updown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -63,12 +68,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
+            // Company_Label
+            // 
+            Company_Label.AutoSize = true;
+            Company_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            Company_Label.Location = new System.Drawing.Point(12, 12);
+            Company_Label.Name = "Company_Label";
+            Company_Label.Size = new System.Drawing.Size(118, 39);
+            Company_Label.TabIndex = 31;
+            Company_Label.Text = "MSSS";
+            // 
             // ResultsGridView
             // 
             this.ResultsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ResultsGridView.Location = new System.Drawing.Point(368, 12);
             this.ResultsGridView.Name = "ResultsGridView";
-            this.ResultsGridView.Size = new System.Drawing.Size(375, 317);
+            this.ResultsGridView.Size = new System.Drawing.Size(468, 317);
             this.ResultsGridView.TabIndex = 0;
             // 
             // StarVelocityObserved_textbox
@@ -77,6 +92,7 @@
             this.StarVelocityObserved_textbox.Name = "StarVelocityObserved_textbox";
             this.StarVelocityObserved_textbox.Size = new System.Drawing.Size(128, 20);
             this.StarVelocityObserved_textbox.TabIndex = 1;
+            this.StarVelocityObserved_textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyInput);
             // 
             // StarVelocity_label
             // 
@@ -102,6 +118,7 @@
             this.StarDistanceArchseconds_textbox.Name = "StarDistanceArchseconds_textbox";
             this.StarDistanceArchseconds_textbox.Size = new System.Drawing.Size(184, 20);
             this.StarDistanceArchseconds_textbox.TabIndex = 5;
+            this.StarDistanceArchseconds_textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyInput);
             // 
             // Temperature_label
             // 
@@ -118,6 +135,7 @@
             this.TemperatureKelvin_textbox.Name = "TemperatureKelvin_textbox";
             this.TemperatureKelvin_textbox.Size = new System.Drawing.Size(184, 20);
             this.TemperatureKelvin_textbox.TabIndex = 7;
+            this.TemperatureKelvin_textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyInput);
             // 
             // EventHorizen_label
             // 
@@ -134,10 +152,11 @@
             this.EventHorizon_textbox.Name = "EventHorizon_textbox";
             this.EventHorizon_textbox.Size = new System.Drawing.Size(148, 20);
             this.EventHorizon_textbox.TabIndex = 9;
+            this.EventHorizon_textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyInput);
             // 
             // EnglishButton
             // 
-            this.EnglishButton.Location = new System.Drawing.Point(410, 348);
+            this.EnglishButton.Location = new System.Drawing.Point(417, 348);
             this.EnglishButton.Name = "EnglishButton";
             this.EnglishButton.Size = new System.Drawing.Size(75, 23);
             this.EnglishButton.TabIndex = 11;
@@ -147,7 +166,7 @@
             // 
             // FrenchButton
             // 
-            this.FrenchButton.Location = new System.Drawing.Point(410, 377);
+            this.FrenchButton.Location = new System.Drawing.Point(417, 377);
             this.FrenchButton.Name = "FrenchButton";
             this.FrenchButton.Size = new System.Drawing.Size(75, 23);
             this.FrenchButton.TabIndex = 12;
@@ -157,7 +176,7 @@
             // 
             // GermanButton
             // 
-            this.GermanButton.Location = new System.Drawing.Point(410, 406);
+            this.GermanButton.Location = new System.Drawing.Point(417, 406);
             this.GermanButton.Name = "GermanButton";
             this.GermanButton.Size = new System.Drawing.Size(75, 23);
             this.GermanButton.TabIndex = 13;
@@ -165,44 +184,45 @@
             this.GermanButton.UseVisualStyleBackColor = true;
             this.GermanButton.Click += new System.EventHandler(this.GermanButton_Click);
             // 
-            // CalculateButton
+            // CalculateAll_Button
             // 
-            this.CalculateButton.Location = new System.Drawing.Point(115, 22);
-            this.CalculateButton.Name = "CalculateButton";
-            this.CalculateButton.Size = new System.Drawing.Size(83, 23);
-            this.CalculateButton.TabIndex = 14;
-            this.CalculateButton.Text = "Calculate All";
-            this.CalculateButton.UseVisualStyleBackColor = true;
+            this.CalculateAll_Button.Location = new System.Drawing.Point(182, 46);
+            this.CalculateAll_Button.Name = "CalculateAll_Button";
+            this.CalculateAll_Button.Size = new System.Drawing.Size(133, 23);
+            this.CalculateAll_Button.TabIndex = 14;
+            this.CalculateAll_Button.Text = "Calculate All";
+            this.CalculateAll_Button.UseVisualStyleBackColor = true;
+            this.CalculateAll_Button.Click += new System.EventHandler(this.CalculateAll_Button_Click);
             // 
-            // ColorPickerButton
+            // ColorPicker_Button
             // 
-            this.ColorPickerButton.Location = new System.Drawing.Point(577, 377);
-            this.ColorPickerButton.Name = "ColorPickerButton";
-            this.ColorPickerButton.Size = new System.Drawing.Size(166, 23);
-            this.ColorPickerButton.TabIndex = 15;
-            this.ColorPickerButton.Text = "Pick Colors";
-            this.ColorPickerButton.UseVisualStyleBackColor = true;
-            this.ColorPickerButton.Click += new System.EventHandler(this.ColorPickerButton_Click);
+            this.ColorPicker_Button.Location = new System.Drawing.Point(667, 377);
+            this.ColorPicker_Button.Name = "ColorPicker_Button";
+            this.ColorPicker_Button.Size = new System.Drawing.Size(166, 23);
+            this.ColorPicker_Button.TabIndex = 15;
+            this.ColorPicker_Button.Text = "Pick Colors";
+            this.ColorPicker_Button.UseVisualStyleBackColor = true;
+            this.ColorPicker_Button.Click += new System.EventHandler(this.ColorPickerButton_Click);
             // 
-            // FontPickerButton
+            // FontPicker_Button
             // 
-            this.FontPickerButton.Location = new System.Drawing.Point(577, 406);
-            this.FontPickerButton.Name = "FontPickerButton";
-            this.FontPickerButton.Size = new System.Drawing.Size(166, 23);
-            this.FontPickerButton.TabIndex = 16;
-            this.FontPickerButton.Text = "Pick Fonts";
-            this.FontPickerButton.UseVisualStyleBackColor = true;
-            this.FontPickerButton.Click += new System.EventHandler(this.FontPickerButton_Click);
+            this.FontPicker_Button.Location = new System.Drawing.Point(667, 406);
+            this.FontPicker_Button.Name = "FontPicker_Button";
+            this.FontPicker_Button.Size = new System.Drawing.Size(166, 23);
+            this.FontPicker_Button.TabIndex = 16;
+            this.FontPicker_Button.Text = "Pick Fonts";
+            this.FontPicker_Button.UseVisualStyleBackColor = true;
+            this.FontPicker_Button.Click += new System.EventHandler(this.FontPickerButton_Click);
             // 
-            // ThemePickerButton
+            // BackgroundPicker_Button
             // 
-            this.ThemePickerButton.Location = new System.Drawing.Point(577, 348);
-            this.ThemePickerButton.Name = "ThemePickerButton";
-            this.ThemePickerButton.Size = new System.Drawing.Size(166, 23);
-            this.ThemePickerButton.TabIndex = 17;
-            this.ThemePickerButton.Text = "Pick Themes";
-            this.ThemePickerButton.UseVisualStyleBackColor = true;
-            this.ThemePickerButton.Click += new System.EventHandler(this.ThemePickerButton_Click);
+            this.BackgroundPicker_Button.Location = new System.Drawing.Point(667, 348);
+            this.BackgroundPicker_Button.Name = "BackgroundPicker_Button";
+            this.BackgroundPicker_Button.Size = new System.Drawing.Size(166, 23);
+            this.BackgroundPicker_Button.TabIndex = 17;
+            this.BackgroundPicker_Button.Text = "Pick Background";
+            this.BackgroundPicker_Button.UseVisualStyleBackColor = true;
+            this.BackgroundPicker_Button.Click += new System.EventHandler(this.BackgroundPickerButton_Click);
             // 
             // StarVelocity_btn
             // 
@@ -269,12 +289,13 @@
             this.StarVelocityRest_textbox.Name = "StarVelocityRest_textbox";
             this.StarVelocityRest_textbox.Size = new System.Drawing.Size(56, 20);
             this.StarVelocityRest_textbox.TabIndex = 2;
+            this.StarVelocityRest_textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyInput);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(369, 348);
+            this.pictureBox1.Location = new System.Drawing.Point(376, 348);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(39, 22);
             this.pictureBox1.TabIndex = 27;
@@ -284,7 +305,7 @@
             // 
             this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(369, 375);
+            this.pictureBox2.Location = new System.Drawing.Point(376, 375);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(39, 25);
             this.pictureBox2.TabIndex = 28;
@@ -294,7 +315,7 @@
             // 
             this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Location = new System.Drawing.Point(369, 406);
+            this.pictureBox3.Location = new System.Drawing.Point(376, 406);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(39, 23);
             this.pictureBox3.TabIndex = 29;
@@ -304,14 +325,49 @@
             // 
             this.MessageBox.Location = new System.Drawing.Point(12, 421);
             this.MessageBox.Name = "MessageBox";
+            this.MessageBox.ReadOnly = true;
             this.MessageBox.Size = new System.Drawing.Size(340, 20);
             this.MessageBox.TabIndex = 30;
+            // 
+            // DefaultTheme_Button
+            // 
+            this.DefaultTheme_Button.Location = new System.Drawing.Point(530, 348);
+            this.DefaultTheme_Button.Name = "DefaultTheme_Button";
+            this.DefaultTheme_Button.Size = new System.Drawing.Size(75, 23);
+            this.DefaultTheme_Button.TabIndex = 32;
+            this.DefaultTheme_Button.Text = "Default";
+            this.DefaultTheme_Button.UseVisualStyleBackColor = true;
+            this.DefaultTheme_Button.Click += new System.EventHandler(this.DefaultTheme_Button_Click);
+            // 
+            // BlackTheme_Button
+            // 
+            this.BlackTheme_Button.Location = new System.Drawing.Point(530, 377);
+            this.BlackTheme_Button.Name = "BlackTheme_Button";
+            this.BlackTheme_Button.Size = new System.Drawing.Size(75, 23);
+            this.BlackTheme_Button.TabIndex = 32;
+            this.BlackTheme_Button.Text = "Black";
+            this.BlackTheme_Button.UseVisualStyleBackColor = true;
+            this.BlackTheme_Button.Click += new System.EventHandler(this.BlackTheme_Button_Click);
+            // 
+            // RedTheme_Button
+            // 
+            this.RedTheme_Button.Location = new System.Drawing.Point(530, 406);
+            this.RedTheme_Button.Name = "RedTheme_Button";
+            this.RedTheme_Button.Size = new System.Drawing.Size(75, 23);
+            this.RedTheme_Button.TabIndex = 32;
+            this.RedTheme_Button.Text = "Red";
+            this.RedTheme_Button.UseVisualStyleBackColor = true;
+            this.RedTheme_Button.Click += new System.EventHandler(this.RedTheme_Button_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(852, 450);
+            this.Controls.Add(this.RedTheme_Button);
+            this.Controls.Add(this.BlackTheme_Button);
+            this.Controls.Add(this.DefaultTheme_Button);
+            this.Controls.Add(Company_Label);
             this.Controls.Add(this.MessageBox);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -323,10 +379,10 @@
             this.Controls.Add(this.TemperatureKelvin_btn);
             this.Controls.Add(this.StarDistance_btn);
             this.Controls.Add(this.StarVelocity_btn);
-            this.Controls.Add(this.ThemePickerButton);
-            this.Controls.Add(this.FontPickerButton);
-            this.Controls.Add(this.ColorPickerButton);
-            this.Controls.Add(this.CalculateButton);
+            this.Controls.Add(this.BackgroundPicker_Button);
+            this.Controls.Add(this.FontPicker_Button);
+            this.Controls.Add(this.ColorPicker_Button);
+            this.Controls.Add(this.CalculateAll_Button);
             this.Controls.Add(this.GermanButton);
             this.Controls.Add(this.FrenchButton);
             this.Controls.Add(this.EnglishButton);
@@ -365,10 +421,10 @@
         private System.Windows.Forms.Button EnglishButton;
         private System.Windows.Forms.Button FrenchButton;
         private System.Windows.Forms.Button GermanButton;
-        private System.Windows.Forms.Button CalculateButton;
-        private System.Windows.Forms.Button ColorPickerButton;
-        private System.Windows.Forms.Button FontPickerButton;
-        private System.Windows.Forms.Button ThemePickerButton;
+        private System.Windows.Forms.Button CalculateAll_Button;
+        private System.Windows.Forms.Button ColorPicker_Button;
+        private System.Windows.Forms.Button FontPicker_Button;
+        private System.Windows.Forms.Button BackgroundPicker_Button;
         private System.Windows.Forms.Button StarVelocity_btn;
         private System.Windows.Forms.Button StarDistance_btn;
         private System.Windows.Forms.Button TemperatureKelvin_btn;
@@ -380,6 +436,9 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.TextBox MessageBox;
+        private System.Windows.Forms.Button DefaultTheme_Button;
+        private System.Windows.Forms.Button BlackTheme_Button;
+        private System.Windows.Forms.Button RedTheme_Button;
     }
 }
 
