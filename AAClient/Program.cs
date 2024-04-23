@@ -6,6 +6,10 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// RAYMOND LAI
+// STUDENT ID: 30082866
+// DATE: 23/04/2024
+
 namespace AAClient
 {
     internal static class Program
@@ -18,7 +22,7 @@ namespace AAClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainWindow());
         }
     }
 }

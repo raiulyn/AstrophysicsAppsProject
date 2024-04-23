@@ -1,6 +1,6 @@
 ﻿namespace AAClient
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label Company_Label;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.ResultsGridView = new System.Windows.Forms.DataGridView();
             this.StarVelocityObserved_textbox = new System.Windows.Forms.TextBox();
             this.StarVelocity_label = new System.Windows.Forms.Label();
@@ -83,6 +83,7 @@
             this.ResultsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ResultsGridView.Location = new System.Drawing.Point(368, 12);
             this.ResultsGridView.Name = "ResultsGridView";
+            this.ResultsGridView.ReadOnly = true;
             this.ResultsGridView.Size = new System.Drawing.Size(468, 317);
             this.ResultsGridView.TabIndex = 0;
             // 
@@ -359,7 +360,7 @@
             this.RedTheme_Button.UseVisualStyleBackColor = true;
             this.RedTheme_Button.Click += new System.EventHandler(this.RedTheme_Button_Click);
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -395,7 +396,8 @@
             this.Controls.Add(this.StarVelocity_label);
             this.Controls.Add(this.StarVelocityObserved_textbox);
             this.Controls.Add(this.ResultsGridView);
-            this.Name = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "MainWindow";
             this.Text = "AstrophysicsApps Client";
             ((System.ComponentModel.ISupportInitialize)(this.ResultsGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EventHorizon_updown)).EndInit();

@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// RAYMOND LAI
+// STUDENT ID: 30082866
+// DATE: 23/04/2024
+
 namespace AstroMath
 {
     public class Calculus

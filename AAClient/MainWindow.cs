@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
+// RAYMOND LAI
+// STUDENT ID: 30082866
+// DATE: 23/04/2024
 
 namespace AAClient
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
-
-        IAstroContract channel;
-
         // Global Localization Setting
         private string _localization = "EnglishUK";
 
         //Constructor
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
 
-            
-            CheckConnection();
             SetupMenus();
             SetupDataGridView();
-            GenerateXmlLocalization(false);
+            //GenerateXmlLocalization(); //Uncomment to generate a localization template file
         }
 
         #region SETUPS
@@ -34,11 +32,19 @@ namespace AAClient
         /// <returns></returns>
         private IAstroContract SetupConnection()
         {
-            string address = "net.pipe://localhost/pipeme";
-            NetNamedPipeBinding binding = new NetNamedPipeBinding(NetNamedPipeSecurityMode.None);
-            EndpointAddress ep = new EndpointAddress(address);
-            IAstroContract channel = ChannelFactory<IAstroContract>.CreateChannel(binding, ep);
-            return channel;
+            try
+            {
+                string address = "net.pipe://localhost/pipeme";
+                NetNamedPipeBinding binding = new NetNamedPipeBinding(NetNamedPipeSecurityMode.None);
+                EndpointAddress ep = new EndpointAddress(address);
+                IAstroContract channel = ChannelFactory<IAstroContract>.CreateChannel(binding, ep);
+                return channel;
+            }
+            catch (Exception)
+            {
+                OutputMessage("No Server found!");
+                return null;
+            }
         }
 
         /// <summary>
@@ -48,38 +54,31 @@ namespace AAClient
         {
             this.Menu = new MainMenu();
 
-            MenuItem item = new MenuItem("File");
+            MenuItem item = new MenuItem(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_File"));
             this.Menu.MenuItems.Add(item);
-            item.MenuItems.Add("Close", new EventHandler(Close_Click));
+            item.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Close"), new EventHandler(Close_Click));
 
-            item = new MenuItem("Languages");
+            item = new MenuItem(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Languages"));
             this.Menu.MenuItems.Add(item);
             item.MenuItems.Add("English UK", new EventHandler(EnglishButton_Click));
             item.MenuItems.Add("French", new EventHandler(FrenchButton_Click));
             item.MenuItems.Add("German", new EventHandler(GermanButton_Click));
 
-            item = new MenuItem("Customization");
+            item = new MenuItem(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Customization"));
             this.Menu.MenuItems.Add(item);
-            item.MenuItems.Add("Background", new EventHandler(BackgroundPickerButton_Click));
-            item.MenuItems.Add("Colors", new EventHandler(ColorPickerButton_Click));
-            item.MenuItems.Add("Fonts", new EventHandler(FontPickerButton_Click));
+            item.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Background"), new EventHandler(BackgroundPickerButton_Click));
+            item.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Colors"), new EventHandler(ColorPickerButton_Click));
+            item.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Fonts"), new EventHandler(FontPickerButton_Click));
 
-            MenuItem subitem = new MenuItem("Themes");
+            MenuItem subitem = new MenuItem(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Themes"));
             item.MenuItems.Add(subitem);
-            subitem.MenuItems.Add("Default", new EventHandler(DefaultTheme_Button_Click));
-            subitem.MenuItems.Add("Black", new EventHandler(BlackTheme_Button_Click));
-            subitem.MenuItems.Add("Red", new EventHandler(RedTheme_Button_Click));
-            subitem.MenuItems.Add("Blue", new EventHandler(BlueTheme_Button_Click));
-            subitem.MenuItems.Add("Yellow", new EventHandler(YellowTheme_Button_Click));
+            subitem.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Default"), new EventHandler(DefaultTheme_Button_Click));
+            subitem.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Black"), new EventHandler(BlackTheme_Button_Click));
+            subitem.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Red"), new EventHandler(RedTheme_Button_Click));
+            subitem.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Blue"), new EventHandler(BlueTheme_Button_Click));
+            subitem.MenuItems.Add(XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Yellow"), new EventHandler(YellowTheme_Button_Click));
         }
 
-        /// <summary>
-        /// Checks if Connection to server is valid
-        /// </summary>
-        private void CheckConnection()
-        {
-            channel = SetupConnection();
-        }
         #endregion
 
         #region GRIDVIEW
@@ -149,9 +148,9 @@ namespace AAClient
         #region SERVER EVENTS
         private void CalculateAll_Button_Click(object sender, EventArgs e)
         {
-            CheckConnection();
+            var channel = SetupConnection();
 
-            //Checks
+            //Checks if all input values are doubles
             //StarVelocity
             double observed;
             double rest;
@@ -206,7 +205,7 @@ namespace AAClient
         }
         private void StarVelocity_btn_Click(object sender, EventArgs e)
         {
-            CheckConnection();
+            var channel = SetupConnection();
             double observed;
             double rest;
             if (!double.TryParse(StarVelocityObserved_textbox.Text, out observed))
@@ -235,7 +234,7 @@ namespace AAClient
         }
         private void StarDistance_btn_Click(object sender, EventArgs e)
         {
-            CheckConnection();
+            var channel = SetupConnection();
             double archseconds;
             if (!double.TryParse(StarDistanceArchseconds_textbox.Text, out archseconds))
             {
@@ -258,7 +257,7 @@ namespace AAClient
         }
         private void TemperatureKelvin_btn_Click(object sender, EventArgs e)
         {
-            CheckConnection();
+            var channel = SetupConnection();
             double temp;
             if (!double.TryParse(TemperatureKelvin_textbox.Text, out temp))
             {
@@ -281,7 +280,7 @@ namespace AAClient
         }
         private void EventHorizon_btn_Click(object sender, EventArgs e)
         {
-            CheckConnection();
+            var channel = SetupConnection();
             double temp;
             if (!double.TryParse(EventHorizon_textbox.Text, out temp))
             {
@@ -399,6 +398,7 @@ namespace AAClient
                     break;
             }
             UpdateLocalizedDataGridView();
+            SetupMenus();
 
             calc_text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Calculate");
             StarVelocity_btn.Text = calc_text;
@@ -413,7 +413,11 @@ namespace AAClient
             Temperature_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Temperature");
             EventHorizen_label.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_EventHorizon");
 
-            BackgroundPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickThemes");
+            DefaultTheme_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Default");
+            BlackTheme_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Black");
+            RedTheme_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_Red");
+
+            BackgroundPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickBackground");
             ColorPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickColors");
             FontPicker_Button.Text = XmlLocalization.ReadXML(_localization + ".xml", "TEXT_PickFonts");
         }
@@ -421,31 +425,27 @@ namespace AAClient
         /// <summary>
         /// Generate a template XML for localization. Once translations are finished, rename the XML file to the appriorate language.
         /// </summary>
-        /// <param name="bl"></param>
-        private void GenerateXmlLocalization(bool bl)
+        private void GenerateXmlLocalization()
         {
-            if (bl)
-            {
-                var xml = new XmlLocalization();
+            var xml = new XmlLocalization();
 
-                List<string> tags = new List<string>();
-                tags.Add("TEXT_Calculate");
-                tags.Add("TEXT_StarVelocity");
-                tags.Add("TEXT_StarDistance");
-                tags.Add("TEXT_Temperature");
-                tags.Add("TEXT_EventHorizon");
+            List<string> tags = new List<string>();
+            tags.Add("TEXT_Calculate");
+            tags.Add("TEXT_StarVelocity");
+            tags.Add("TEXT_StarDistance");
+            tags.Add("TEXT_Temperature");
+            tags.Add("TEXT_EventHorizon");
 
-                tags.Add("TEXT_PickThemes");
-                tags.Add("TEXT_PickColors");
-                tags.Add("TEXT_PickFonts");
+            tags.Add("TEXT_PickThemes");
+            tags.Add("TEXT_PickColors");
+            tags.Add("TEXT_PickFonts");
 
-                tags.Add("TEXT_Connected");
-                tags.Add("TEXT_Disconnected");
-                tags.Add("TEXT_CheckServer");
+            tags.Add("TEXT_Connected");
+            tags.Add("TEXT_Disconnected");
+            tags.Add("TEXT_CheckServer");
 
-                xml.tags = tags.ToArray();
-                xml.CreateXML();
-            }
+            xml.tags = tags.ToArray();
+            xml.CreateXML();
         }
 
         /// <summary>
